@@ -1,0 +1,163 @@
+<div>
+    <!--bread curmb start-->
+    <div class="page-top-info">
+        <br><br>
+        <div class="container">
+
+
+            <div class="site-pagination">
+                <h4>{{'Categories'|translate}}</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a style="cursor: pointer  !important;"
+                                [routerLink]="['/dashboard']">Home</a></li>
+                        <li class="breadcrumb-item"><a class="pointer" [routerLink]="['/Categories']">Categories</a>
+                        </li>
+                        <li class="breadcrumb-item active" *ngIf="category.id ==0" aria-current="page"> Add Category
+                        </li>
+                        <li class="breadcrumb-item active" *ngIf="category.id > 0" aria-current="page"> Update Category
+                        </li>
+
+                    </ol>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+    <!--bread curmb end-->
+
+    <br>
+
+    <div class="mat-elevation-z8">
+        <div class="content container">
+            <div class="actions" *ngIf="category.id > 0">
+                <button mat-raised-button color="primary" (click)="delete()">
+                    <mat-icon>delete_forever</mat-icon> <label> Delete </label>
+                </button>
+            </div>
+            <form [formGroup]="categoryForm">
+                <h1 mat-dialog-title *ngIf="category.name">{{category.name}} Details</h1>
+
+                <hr>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <mat-form-field class="ApplayFullWidth">
+                            <input matInput autocomplete="off" formControlName="name"
+                                placeholder="{{'Name'|translate}}">
+                            <mat-error *ngFor="let validation of category_validation_messages.name">
+                                <mat-error
+                                    *ngIf="categoryForm.get('name').hasError(validation.type) && (categoryForm.get('name').dirty || categoryForm.get('name').touched)">
+                                    {{validation.message|translate}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 d-none">
+                        <mat-form-field>
+                            <input matInput autocomplete="off" formControlName="description"
+                                placeholder="{{'Desc'|translate}}">
+                            <mat-error *ngFor="let validation of category_validation_messages.description">
+                                <mat-error
+                                    *ngIf="categoryForm.get('description').hasError(validation.type) && (categoryForm.get('description').dirty || categoryForm.get('description').touched)">
+                                    {{validation.message|translate}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row d-none">
+                    <div class="col-lg-6 ">
+                        <mat-form-field>
+                            <input matInput autocomplete="off" formControlName="nameAr"
+                                placeholder="{{'NameAr'|translate}}">
+                            <mat-error *ngFor="let validation of category_validation_messages.nameAr">
+                                <mat-error
+                                    *ngIf="categoryForm.get('nameAr').hasError(validation.type) && (categoryForm.get('nameAr').dirty || categoryForm.get('nameAr').touched)">
+                                    {{validation.message|translate}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field>
+                            <input matInput autocomplete="off" formControlName="descriptionAr"
+                                placeholder="{{'DescAr'|translate}}">
+                            <mat-error *ngFor="let validation of category_validation_messages.descriptionAr">
+                                <mat-error
+                                    *ngIf="categoryForm.get('descriptionAr').hasError(validation.type) && (categoryForm.get('descriptionAr').dirty || categoryForm.get('descriptionAr').touched)">
+                                    {{validation.message|translate}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <mat-form-field>
+                            <textarea matInput autocomplete="off" formControlName="metaKeys"
+                                placeholder="{{'metaKeys'|translate}}"> </textarea>
+                            <mat-error *ngFor="let validation of category_validation_messages.name">
+                                <mat-error
+                                    *ngIf="categoryForm.get('metaKeys').hasError(validation.type) && (categoryForm.get('metaKeys').dirty || categoryForm.get('metaKeys').touched)">
+                                    {{validation.message|translate}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field>
+                            <textarea matInput type="text" autocomplete="off" formControlName="metaKeysAR"
+                                placeholder="{{'metaKeysAR'|translate}}"></textarea>
+                            <mat-error *ngFor="let validation of category_validation_messages.description">
+                                <mat-error
+                                    *ngIf="categoryForm.get('metaKeysAR').hasError(validation.type) && (categoryForm.get('metaKeysAR').dirty || categoryForm.get('metaKeysAR').touched)">
+                                    {{validation.message|translate}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-6">
+
+                        <mat-form-field>
+                            <mat-label> -- {{'Please-select-Category'|translate}} --</mat-label>
+                            <mat-select formControlName="parentsIDs" placeholder="{{'Category'|translate}}"
+                                [multiple]="true" #multiSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search [formControl]="categoryFilterCtrl"
+                                        placeholderLabel="{{'Search'|translate}}" noEntriesFoundLabel="not Found">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngFor="let item of filteredCategories| async" [value]="item.id">
+                                    {{item.name|langPipe:item.nameAr}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field>
+                            <input matInput autocomplete="off" formControlName="groupCode"
+                                placeholder="{{'GroupCode'|translate}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <app-image-upload (complete)="onFileComplete($event)" [iconName]="category.iconName"
+                            text="Upload Category Icon" target="CategoryImages"></app-image-upload>
+                    </div>
+                </div>
+
+                <div class="table-actions">
+                    <button mat-raised-button color="primary" (click)="save()"
+                        [disabled]="categoryForm.invalid || !categoryForm.dirty">
+                        <mat-icon>save</mat-icon> <label> {{'Save'|translate}} </label>
+                    </button>
+                    <button mat-raised-button color="primary" type="button" (click)="cancel()">
+                        <mat-icon>cancel</mat-icon> <label> {{'Cancel'|translate}} </label>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

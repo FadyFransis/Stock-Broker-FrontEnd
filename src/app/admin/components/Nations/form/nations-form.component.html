@@ -1,0 +1,98 @@
+<div>
+    <div class="page-top-info">
+        <br><br>
+        <div class="container">
+            
+             
+            <div class="site-pagination">  <h4>{{'Nations'|translate}}</h4> 
+                <nav aria-label="breadcrumb" >
+                   <ol class="breadcrumb">
+                     <li class="breadcrumb-item"><a style="cursor: pointer  !important;" [routerLink]="['/dashboard']">Home</a></li>
+                     <li class="breadcrumb-item"><a  class="pointer" [routerLink]="['/NationList']">Nation</a></li>
+                     <li class="breadcrumb-item active" *ngIf="nation.id ==0" aria-current="page">  Add Nation</li>
+                     <li class="breadcrumb-item active" *ngIf="nation.id > 0" aria-current="page"> Edit Nation</li>
+       
+                   </ol>
+                 </nav>
+                 
+               </div> 
+        </div>
+    </div>
+    <!--bread curmb end-->
+    <br>
+
+    <div class="mat-elevation-z8">
+        <div class="content">
+            <div class="actions" *ngIf="nation.id > 0">
+                <button mat-raised-button color="primary" (click)="delete()">
+                    <mat-icon>delete_forever</mat-icon> <label> {{'Delete'|translate}} </label>
+                </button>
+            </div>
+            <form [formGroup]="nationForm">
+                <h1 mat-dialog-title *ngIf="nation.name">{{nation.name|langPipe:nation.nameAr}} {{'Details'|translate}}
+                </h1>
+                <h1 mat-dialog-title *ngIf="!nation.name">{{'Add-new'|translate}}</h1>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <mat-form-field>
+                            <input matInput autocomplete="off" formControlName="name"
+                                placeholder="{{'Name'|translate}}">
+                            <mat-error *ngFor="let validation of nation_validation_messages.name">
+                                <mat-error
+                                    *ngIf="nationForm.get('name').hasError(validation.type) && (nationForm.get('name').dirty || nationForm.get('name').touched)">
+                                    {{validation.message}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field>
+                            <input matInput autocomplete="off" formControlName="description"
+                                placeholder="{{'Desc'|translate}}">
+                            <mat-error *ngFor="let validation of nation_validation_messages.description">
+                                <mat-error
+                                    *ngIf="nationForm.get('description').hasError(validation.type) && (nationForm.get('description').dirty || nationForm.get('description').touched)">
+                                    {{validation.message}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <mat-form-field>
+                            <input matInput autocomplete="off" formControlName="nameAr"
+                                placeholder="{{'NameAr'|translate}}">
+                            <mat-error *ngFor="let validation of nation_validation_messages.nameAr">
+                                <mat-error
+                                    *ngIf="nationForm.get('nameAr')?.hasError(validation.type) && (nationForm.get('nameAr').dirty || nationForm.get('nameAr').touched)">
+                                    {{validation.message}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field>
+                            <input matInput autocomplete="off" formControlName="descriptionAr"
+                                placeholder="{{'DescAr'|translate}}">
+                            <mat-error *ngFor="let validation of nation_validation_messages.descriptionAr">
+                                <mat-error
+                                    *ngIf="nationForm.get('descriptionAr').hasError(validation.type) && (nationForm.get('descriptionAr').dirty || nationForm.get('descriptionAr').touched)">
+                                    {{validation.message}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                </div>
+                <div class="table-actions">
+                    <button mat-raised-button color="primary" (click)="save()"
+                        [disabled]="nationForm.invalid || !nationForm.dirty">
+                        <mat-icon>save</mat-icon> <label> Save </label>
+                    </button>
+                    <button mat-raised-button color="primary" type="button" (click)="cancel()">
+                        <mat-icon>cancel</mat-icon> <label> Cancel </label>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

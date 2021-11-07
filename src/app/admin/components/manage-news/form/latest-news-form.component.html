@@ -1,0 +1,82 @@
+<div>
+    <div class="page-top-info">
+        <br><br>
+        <div class="container">
+            
+             
+            <div class="site-pagination">  <h4>{{'News'|translate}}</h4> 
+                <nav aria-label="breadcrumb" >
+                   <ol class="breadcrumb">
+                     <li class="breadcrumb-item"><a style="cursor: pointer  !important;" [routerLink]="['/dashboard']">Home</a></li>
+                     <li class="breadcrumb-item"><a  class="pointer" [routerLink]="['/LatestNewsList']">News</a></li>
+                     <li class="breadcrumb-item active" *ngIf="latestNews.id ==0" aria-current="page">  Add News</li>
+                     <li class="breadcrumb-item active" *ngIf="latestNews.id > 0" aria-current="page"> Edit News</li>
+       
+                   </ol>
+                 </nav>
+                 
+               </div> 
+        </div>
+    </div>
+    <!--bread curmb end-->
+
+    <br>
+
+    <div class="mat-elevation-z8">
+        <div class="content container">
+
+            <form [formGroup]="latestNewsForm">
+                <div class="row">
+
+                    <div class="col-lg-4 offset-sm-1">
+                        <mat-form-field style="padding-top: 20px;">
+                            <input matInput autocomplete="off" formControlName="title"
+                                placeholder="Title">
+
+                        </mat-form-field>
+                        <mat-error *ngFor="let validation of latestNews_validation_messages.title">
+                            <mat-error
+                                *ngIf="latestNewsForm.get('title').hasError(validation.type) && (latestNewsForm.get('title').dirty || latestNewsForm.get('title').touched)">
+                                {{validation.message|translate}}</mat-error>
+                        </mat-error>
+                    </div>
+                   
+                    <div class="col-lg-3">
+                        <mat-form-field style="padding-top: 20px;">
+                            <input matInput autocomplete="off" formControlName="redirectLink"
+                                placeholder="Redirect Link">
+
+                        </mat-form-field>
+                    </div>
+                  
+                    <div class="col-lg-3" >
+                        <mat-form-field style="padding-top: 20px;">
+                            <input matInput autocomplete="off" formControlName="videoUrl" placeholder="Video Url">
+                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-10 offset-sm-1  pb-5">
+                        <label>description</label>
+                                    <ckeditor [editor]="Editor" autocomplete="off" formControlName="description"
+                                     ></ckeditor>   
+                    </div>
+                    <div class="col-lg-4 offset-sm-1 " >
+                        <app-image-upload (complete)="onFileComplete($event)" [iconName]="latestNews.imagePath"
+                            text="Upload Image" target="LatestNewsImages"></app-image-upload>
+                    </div>
+                </div>
+
+
+                <div class="table-actions">
+                    <button mat-raised-button color="primary" (click)="save()"
+                        [disabled]="latestNewsForm.invalid || !latestNewsForm.dirty">
+                        <mat-icon>save</mat-icon> <label> {{'Save'|translate}} </label>
+                    </button>
+                    <button mat-raised-button color="primary" type="button" (click)="cancel()">
+                        <mat-icon>cancel</mat-icon> <label> {{'Cancel'|translate}} </label>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

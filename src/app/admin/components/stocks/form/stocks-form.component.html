@@ -1,0 +1,64 @@
+<p>stocks-form works!</p>
+<div>
+    <div class="page-top-info">
+        <br><br>
+        <div class="container">
+            
+             
+            <div class="site-pagistock">  <h4>{{'Stocks'|translate}}</h4> 
+                <nav aria-label="breadcrumb" >
+                   <ol class="breadcrumb">
+                     <li class="breadcrumb-item"><a style="cursor: pointer  !important;" [routerLink]="['/dashboard']">Home</a></li>
+                     <li class="breadcrumb-item"><a  class="pointer" [routerLink]="['/StockList']">Stock</a></li>
+                     <li class="breadcrumb-item active" *ngIf="stock.id ==0" aria-current="page">  Add Stock</li>
+                     <li class="breadcrumb-item active" *ngIf="stock.id > 0" aria-current="page"> Edit Stock</li>
+       
+                   </ol>
+                 </nav>
+                 
+               </div> 
+        </div>
+    </div>
+    <!--bread curmb end-->
+    <br>
+
+    <div class="mat-elevation-z8">
+        <div class="content">
+            <div class="actions" *ngIf="stock.id > 0">
+                <button mat-raised-button color="primary" (click)="delete()">
+                    <mat-icon>delete_forever</mat-icon> <label> {{'Delete'|translate}} </label>
+                </button>
+            </div>
+            <form [formGroup]="stockForm">
+                <h1 mat-dialog-title *ngIf="stock.name">{{stock.name|langPipe:""}} {{'Details'|translate}}
+                </h1>
+                <h1 mat-dialog-title *ngIf="!stock.name">{{'Add-new'|translate}}</h1>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <mat-form-field>
+                            <input matInput autocomplete="off" formControlName="name"
+                                placeholder="{{'Name'|translate}}">
+                            <mat-error *ngFor="let validation of stock_validation_messages.name">
+                                <mat-error
+                                    *ngIf="stockForm.get('name').hasError(validation.type) && (stockForm.get('name').dirty || stockForm.get('name').touched)">
+                                    {{validation.message}}</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                   
+                </div>
+                
+                <div class="table-actions">
+                    <button mat-raised-button color="primary" (click)="save()"
+                        [disabled]="stockForm.invalid || !stockForm.dirty">
+                        <mat-icon>save</mat-icon> <label> Save </label>
+                    </button>
+                    <button mat-raised-button color="primary" type="button" (click)="cancel()">
+                        <mat-icon>cancel</mat-icon> <label> Cancel </label>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

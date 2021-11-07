@@ -1,0 +1,16 @@
+<div *ngIf="data.length >0">
+   <h2 mat-dialog-title> {{'ParentCategory'|translate}} </h2> 
+</div>
+
+<mat-dialog-content>
+    <div *ngFor="let item of data">
+        {{ item.parent.name}}
+        <br>
+  </div>
+  <div *ngIf="data.length <=0" >
+    "There is no data Linking"
+    <br>
+  </div>
+ 
+ </mat-dialog-content>
+

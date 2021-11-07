@@ -1,0 +1,99 @@
+<div>
+ 
+    <!--bread curmb start-->
+<div class="page-top-info">
+    <br><br>
+    <div class="container">
+        
+         
+        <div class="site-pagination">  <h4>{{'Brands'|translate}}</h4> 
+            <nav aria-label="breadcrumb" >
+               <ol class="breadcrumb">
+                 <li class="breadcrumb-item"><a style="cursor: pointer  !important;" [routerLink]="['/dashboard']">Home</a></li>
+                 <li class="breadcrumb-item"><a  class="pointer" [routerLink]="['/BrandList']">Brands</a></li>
+                 <li class="breadcrumb-item active" *ngIf="companyBrand.id ==0" aria-current="page">  Add Brand</li>
+                 <li class="breadcrumb-item active" *ngIf="companyBrand.id > 0" aria-current="page"> Edit Brand</li>
+   
+               </ol>
+             </nav>
+             
+           </div> 
+    </div>
+</div>
+<!--bread curmb end-->
+
+    <br>
+
+    <div class="mat-elevation-z8">
+        <div class="content container">
+            <div class="actions" *ngIf="companyBrand.id > 0">
+                <button mat-raised-button color="primary" (click)="delete()">
+                    <mat-icon>delete_forever</mat-icon> <label> {{'Delete'|translate}} </label>
+                </button>
+            </div>
+            <form [formGroup]="companyBrandForm">
+                <h1 mat-dialog-title *ngIf="companyBrand.name">{{companyBrand.name|langPipe:companyBrand.nameAr}} {{'Details'|translate}}</h1>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                    <mat-form-field>
+                        <input matInput autocomplete="off" formControlName="name" placeholder="{{'Name'|translate}}">
+                        <mat-error *ngFor="let validation of companyBrand_validation_messages.name">
+                            <mat-error
+                                *ngIf="companyBrandForm.get('name').hasError(validation.type) && (companyBrandForm.get('name').dirty || companyBrandForm.get('name').touched)">
+                                {{validation.message|translate}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    </div>
+                    <div class="col-lg-6">
+                    <mat-form-field>
+                        <input matInput autocomplete="off" formControlName="description" placeholder="{{'Desc'|translate}}">
+                        <mat-error *ngFor="let validation of companyBrand_validation_messages.description">
+                            <mat-error
+                                *ngIf="companyBrandForm.get('description').hasError(validation.type) && (companyBrandForm.get('description').dirty || companyBrandForm.get('description').touched)">
+                                {{validation.message|translate}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-lg-6">
+                    <mat-form-field>
+                        <input matInput autocomplete="off" formControlName="nameAr" placeholder="{{'NameAr'|translate}}">
+                        <mat-error *ngFor="let validation of companyBrand_validation_messages.nameAr">
+                            <mat-error
+                                *ngIf="companyBrandForm.get('nameAr')?.hasError(validation.type) && (companyBrandForm.get('nameAr').dirty || companyBrandForm.get('nameAr').touched)">
+                                {{validation.message|translate}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field>
+                        <input matInput autocomplete="off" formControlName="descriptionAr" placeholder="{{'DescAr'|translate}}">
+                        <mat-error *ngFor="let validation of companyBrand_validation_messages.descriptionAr">
+                            <mat-error
+                                *ngIf="companyBrandForm.get('descriptionAr').hasError(validation.type) && (companyBrandForm.get('descriptionAr').dirty || companyBrandForm.get('descriptionAr').touched)">
+                                {{validation.message|translate}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                <app-image-upload (complete)="onFileComplete($event)" [iconName]="companyBrand.iconName" text="Upload Brand Icon" target="BrandImages"></app-image-upload>
+                </div>
+            </div>
+                <div class="table-actions">
+                    <button mat-raised-button color="primary" (click)="save()"
+                        [disabled]="companyBrandForm.invalid || !companyBrandForm.dirty">
+                        <mat-icon>save</mat-icon> <label> {{'Save'|translate}} </label>
+                    </button>
+                    <button mat-raised-button color="primary" type="button" (click)="cancel()">
+                        <mat-icon>cancel</mat-icon> <label> {{'Cancel'|translate}} </label>
+                    </button>
+                </div>
+            </form>
+       
+        </div>
+    </div>
+</div>

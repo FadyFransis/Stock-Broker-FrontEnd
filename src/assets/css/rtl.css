@@ -1,0 +1,87 @@
+
+/* @font-face {
+    font-family:"DroidKufi-bold" ;
+    src: url(../fonts/DroidKufi-bold.ttf);
+  } */
+
+
+  /* @font-face {
+    font-family: "Bitstream Vera Serif Bold";
+    src: url("https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf");
+  } */
+  .body{
+      direction: rtl;
+      font-family:Cairo-Regular !important  ;
+      text-align: right !important;
+  }
+  .table-container {
+    width: 100%;
+    font-family:Cairo-Regular !important  ;
+    text-align: right !important;
+}
+.user-panel .up-item:first-child {
+    margin-left: 16px;
+}
+.user-panel .up-item:first-child {
+  margin-right: 1px !important;
+}
+.header-search-form button {
+  float: left;
+  left: 18px !important;
+right: auto;}
+  
+  .main-menu .sub-menu {
+    position: absolute;
+    list-style: none;
+    width: 900px;
+    right: 0;}
+
+  .m-rtl{
+
+    margin-left: auto!important;
+    margin-right: unset !important;
+}
+.contact-widget .con-info span {
+  float: right;
+  color: #ED1C24;
+  margin-right: 0px;
+  margin-left:15px;
+  overflow: hidden;
+}
+.checkmark {
+  position: absolute;
+  top: 3px;
+  left:unset !important ;
+  right: 0px;}
+
+  .check {
+    display: block;
+    position: relative;
+    padding-left: unset;
+    padding-right: 25px !important;}
+
+    .float-left {
+      float: right !important;
+  }
+  .float-right {
+    float: left !important;
+}
+.pi-links {
+ 
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+  text-align: left !important;
+}
+.mat-form-field {
+
+  text-align: right;
+}
+.map {
+right: unset ;
+  left: 0;}
+  
+
+  .text-right{text-align: left !important;}
+ 
+  .quantity p {
+    float: right;}
