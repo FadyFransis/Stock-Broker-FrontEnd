@@ -6,4 +6,5 @@ export class Stock {
 	lastUpdatedDate :string;
 	recordStatus :number;
 	name :string;
+	price:number;
 }

@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminLayoutComponent } from './components/admin-layout/admin-layout.component';
 import { AdminRoutingModule } from './admin-routing.module';
 
+
 import { LanguagePipe } from '../admin/pipes/lang-pipe';
 
 import { NationsListComponent } from './components/Nations/list/nations-list.component';
@@ -17,7 +18,7 @@ import { NationsFormComponent } from './components/Nations/form/nations-form.com
 
 import {CategoriesComponent} from './components/mange-Categories/list/categories.component';
 import {CategoryFormComponent} from './components/mange-Categories/form/category-form.component';
-
+import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { AuthGuard } from './../services/config/auth.guard';
 
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
@@ -34,13 +35,15 @@ import { StocksFormComponent } from './components/stocks/form/stocks-form.compon
     FooterComponent,
     DashboardComponent,
     AdminLayoutComponent,
-  
+
     LanguagePipe,
 
     NationsListComponent,
     NationsFormComponent,
     CategoriesComponent,
     CategoryFormComponent,
+    ImageUploadComponent,
+
     FileUploadComponent,
 
     FilterPipe,

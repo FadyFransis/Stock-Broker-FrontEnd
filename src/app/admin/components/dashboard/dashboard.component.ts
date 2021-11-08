@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Stock } from 'src/app/models/StockDTO';
+import { StockService } from 'src/app/services/stock.service';
+import { Response } from '../../../models/responseDTO';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -8,7 +12,11 @@ import * as Chartist from 'chartist';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private spinner:NgxSpinnerService ,
+    private stockService:StockService) { }
+    response:Response<Stock>;
+    responseAll:Response<Stock[]>;
+    stocks:Stock[];
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -66,6 +74,7 @@ export class DashboardComponent implements OnInit {
       seq2 = 0;
   };
   ngOnInit() {
+    this.getAllStocks();
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {
@@ -146,5 +155,24 @@ export class DashboardComponent implements OnInit {
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
   }
-
+  getAllStocks = () => {
+    this.spinner.show();
+    this.stockService.getAll().subscribe(response => {
+      this.responseAll = response;
+      if (!this.responseAll.isError) {
+        this.stocks = this.responseAll.result;
+        // this.organizeData();
+        this.spinner.hide();
+       
+      }
+      else
+        Swal.fire({
+          title: 'Error!',
+          text: this.responseAll.errors[0],
+          icon: 'error',
+        })
+        this.spinner.hide();
+    });
+   
+  }
 }
